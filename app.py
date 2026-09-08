@@ -207,35 +207,38 @@ def register():
 def dashboard():
 
     if "user_id" not in session:
-
         return redirect(url_for("login"))
 
+    # Get dashboard summary
     summary = dashboard_summary()
 
+    # Prevent None summary error
+    if summary is None:
+        summary = {
+            "aqi": 0,
+            "temperature": 0,
+            "humidity": 0,
+            "pm25": 0,
+            "pm10": 0
+        }
+
     weather = None
+
     lat = session.get("latitude")
     lon = session.get("longitude")
 
-    if lat and lon:
+    if lat is not None and lon is not None:
         weather = get_weather_by_coordinates(lat, lon)
+
     return render_template(
-
         "dashboard.html",
-
         summary=summary,
-
         weather=weather,
-
         aqi_chart=aqi_chart(),
-
         temperature_chart=temperature_chart(),
-
         humidity_chart=humidity_chart(),
-
         pollution_chart=pollution_chart(),
-
         aqi_distribution=aqi_distribution()
-
     )
 
 
