@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Pollution Map</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+<h2>India Pollution Map</h2>
+
+<div class="chart-box">
+
+{{ pollution_map|safe }}
+
+</div>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Dataset</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/upload_dataset.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="upload-box">
+
+        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+        <h2>Upload Environment Dataset</h2>
+
+        <p>Only CSV files are allowed</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="{{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <input
+            type="file"
+            name="dataset"
+            accept=".csv"
+            required>
+
+            <button type="submit">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload Dataset
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

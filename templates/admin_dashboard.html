@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/admin.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-earth-asia"></i>
+
+        <div>
+
+            <h2>Environment</h2>
+
+            <p>Monitoring System</p>
+
+        </div>
+
+    </div>
+
+    <ul>
+
+        <li class="active">
+
+            <a href="/admin_dashboard">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="/upload_dataset">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload Dataset
+
+            </a>
+
+        </li>
+
+        <li>
+
+<a href="/dataset_history">
+
+<i class="fa-solid fa-database"></i>
+
+Dataset History
+
+</a>
+
+</li>
+
+    <li>
+    <a href="/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+    </a>
+</li>
+
+        <li>
+
+            <a href="/aqi_analysis">
+    <i class="fa-solid fa-chart-line"></i>
+    AQI Analytics
+</a>
+
+        </li>
+
+        
+
+        <li class="logout">
+
+            <a href="/logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- Main -->
+
+<div class="main-content">
+
+    <!-- Header -->
+
+    <header>
+
+        <div>
+
+            <h1>Admin Dashboard</h1>
+
+            <p>Environment Monitoring System</p>
+
+        </div>
+
+        <div class="admin-profile">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+            <span>{{ session['user_name'] }}</span>
+
+        </div>
+
+    </header>
+
+    <!-- Cards -->
+
+    <section class="cards">
+
+    <div class="card">
+
+        <i class="fa-solid fa-users"></i>
+
+        <h4>Total Users</h4>
+
+        <h2>{{ summary.users }}</h2>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-database"></i>
+
+        <h4>Total Dataset</h4>
+
+        <h2>{{ summary.dataset }}</h2>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-chart-simple"></i>
+
+        <h4>Total Predictions</h4>
+
+        <h2>{{ summary.predictions }}</h2>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-wind"></i>
+
+        <h4>Average AQI</h4>
+
+        <h2>{{ summary.avg_aqi }}</h2>
+
+    </div>
+
+</section>
+    <!-- Charts -->
+
+    <section class="charts">
+
+        <div class="chart-box">
+
+            <h3>AQI Trend</h3>
+
+            {{ aqi_chart|safe }}
+
+        </div>
+
+        <div class="chart-box">
+
+            <h3>Temperature Trend</h3>
+
+            {{ temperature_chart|safe }}
+
+        </div>
+
+    </section>
+
+    <!-- Dataset Status -->
+
+    <section class="status-section">
+
+        <div class="status-box">
+
+            <h3>Dataset Status</h3>
+
+            <table>
+
+                <tr>
+
+                    <td>Total Rows</td>
+
+                    <td>2500</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Total Columns</td>
+
+                    <td>10</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Missing Values</td>
+
+                    <td>2</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Duplicate Rows</td>
+
+                    <td>0</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Quality Score</td>
+
+                    <td>99%</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- Recent Upload -->
+
+    <section class="recent">
+
+        <h3>Recent Uploaded Dataset</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Filename</th>
+
+                    <th>Rows</th>
+
+                    <th>Date</th>
+
+                    <th>Uploaded By</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>citydata.csv</td>
+
+                    <td>2500</td>
+
+                    <td>06-08-2026</td>
+
+                    <td>Admin</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

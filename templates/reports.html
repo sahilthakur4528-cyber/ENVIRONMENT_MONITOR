@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Environmental Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/reports.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/theme.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Environmental Reports
+            </h1>
+
+            <p>
+                Generate and download environmental monitoring reports
+            </p>
+
+        </div>
+
+        <div class="report-icon">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+        </div>
+
+    </div>
+
+<div class="report-user">
+    <i class="fa-solid fa-user"></i>
+    <span>Report Generated For:</span>
+    <strong>{{ session['name'] }}</strong>
+</div>
+
+
+    <!-- =========================
+         REPORT STATUS
+    ========================== -->
+
+    <div class="report-status">
+
+        <span class="status-dot"></span>
+
+        REPORT CENTER
+
+        <span class="status-text">
+            Latest environmental data available
+        </span>
+
+    </div>
+
+
+    <!-- =========================
+         REPORT CARDS
+    ========================== -->
+
+    <section class="report-cards">
+
+
+        <!-- AIR REPORT -->
+
+        <div class="report-card">
+
+            <div class="card-icon air-icon">
+
+                <i class="fa-solid fa-wind"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Air Quality Report
+                </h2>
+
+                <p>
+                    View AQI, PM2.5, PM10 and other
+                    air pollution parameters.
+                </p>
+
+                <div class="report-info">
+
+                    <span>
+                        <i class="fa-solid fa-chart-line"></i>
+                        Air Quality
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        PDF
+                    </span>
+
+                </div>
+
+                <a href="{{ url_for('air_report') }}" class="report-btn">
+    <i class="fa-solid fa-download"></i>
+    Download Air Quality Report
+</a>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATER REPORT -->
+
+        <div class="report-card">
+
+            <div class="card-icon water-icon">
+
+                <i class="fa-solid fa-droplet"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h2>
+                    Water Quality Report
+                </h2>
+
+                <p>
+                    View pH, turbidity, dissolved oxygen,
+                    TDS and WQI information.
+                </p>
+
+                <div class="report-info">
+
+                    <span>
+                        <i class="fa-solid fa-water"></i>
+                        Water Quality
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-file-pdf"></i>
+                        PDF
+                    </span>
+
+                </div>
+
+                <a href="{{ url_for('water_report') }}"
+                   class="report-button">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Download Water Report
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================
+         REPORT INFORMATION
+    ========================== -->
+
+    <section class="info-box">
+
+        <div class="info-icon">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+        <div>
+
+            <h2>
+                About Environmental Reports
+            </h2>
+
+            <p>
+                Reports are generated using the latest
+                environmental monitoring data available
+                in the system.
+            </p>
+
+            <p>
+                The PDF report contains important
+                measurements, quality status and
+                environmental observations.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REPORT FEATURES
+    ========================== -->
+
+    <section class="features">
+
+        <h2>
+            Report Features
+        </h2>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-database"></i>
+
+                <h3>
+                    Latest Data
+                </h3>
+
+                <p>
+                    Reports use the latest available
+                    environmental records.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                <h3>
+                    PDF Format
+                </h3>
+
+                <p>
+                    Download reports in a professional
+                    PDF format.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <h3>
+                    Data Summary
+                </h3>
+
+                <p>
+                    Important environmental parameters
+                    are included in the report.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <h3>
+                    Secure Access
+                </h3>
+
+                <p>
+                    Reports are available only to
+                    authenticated users.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<!-- =========================
+     DARK MODE
+========================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (
+        localStorage.getItem("darkMode") === "enabled"
+    ) {
+
+        document.body.classList.add("dark-mode");
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

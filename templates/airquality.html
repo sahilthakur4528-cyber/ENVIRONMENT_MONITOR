@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Air Quality</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/airquality.css') }}">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="page-header">
+
+<h1>Air Quality Monitoring</h1>
+
+<p>Live Air Pollution Overview</p>
+
+</div>
+
+
+<section class="cards">
+
+<div class="card">
+<i class="fa-solid fa-leaf"></i>
+<h4>AQI</h4>
+<h2>{{ data.aqi }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-smog"></i>
+<h4>PM2.5</h4>
+<h2>{{ data.pm25 }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-cloud"></i>
+<h4>PM10</h4>
+<h2>{{ data.pm10 }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-industry"></i>
+<h4>CO</h4>
+<h2>{{ data.co }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-vial"></i>
+<h4>NO₂</h4>
+<h2>{{ data.no2 }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-fire"></i>
+<h4>SO₂</h4>
+<h2>{{ data.so2 }}</h2>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-sun"></i>
+<h4>O₃</h4>
+<h2>{{ data.o3 }}</h2>
+</div>
+
+</section>
+
+
+
+<section class="chart-container">
+
+<div class="chart-box">
+
+{{ trend|safe }}
+
+</div>
+
+<div class="chart-box">
+
+{{ chart|safe }}
+
+</div>
+
+</section>
+
+
+
+<section class="status-box">
+
+<h2>AQI Category</h2>
+
+{% if data.aqi <= 50 %}
+
+<div class="good">
+🟢 Good Air Quality
+</div>
+
+{% elif data.aqi <=100 %}
+
+<div class="moderate">
+🟡 Moderate Air Quality
+</div>
+
+{% elif data.aqi <=150 %}
+
+<div class="poor">
+🟠 Poor Air Quality
+</div>
+
+{% elif data.aqi <=200 %}
+
+<div class="unhealthy">
+🔴 Unhealthy
+</div>
+
+{% else %}
+
+<div class="hazardous">
+🟣 Hazardous
+</div>
+
+{% endif %}
+
+</section>
+
+
+
+<section class="advice-box">
+
+<h2>Health Recommendations</h2>
+
+<ul>
+
+<li>😷 Wear a mask outdoors.</li>
+
+<li>🚶 Avoid heavy outdoor exercise.</li>
+
+<li>🏠 Keep doors and windows closed.</li>
+
+<li>💧 Drink plenty of water.</li>
+
+<li>🌳 Prefer parks with better air quality.</li>
+
+</ul>
+
+</section>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</html>

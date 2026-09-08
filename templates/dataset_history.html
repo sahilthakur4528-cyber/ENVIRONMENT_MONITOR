@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Dataset History</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='css/dataset_history.css') }}">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+<h2>Dataset History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>File Name</th>
+
+<th>Rows</th>
+
+<th>Columns</th>
+
+<th>Missing</th>
+
+<th>Duplicate</th>
+
+<th>Quality</th>
+
+<th>Uploaded By</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for row in history %}
+
+<tr>
+
+<td>{{ row.file_name }}</td>
+
+<td>{{ row.total_rows }}</td>
+
+<td>{{ row.total_columns }}</td>
+
+<td>{{ row.missing_values }}</td>
+
+<td>{{ row.duplicate_values }}</td>
+
+<td>{{ row.quality_percentage }}%</td>
+
+<td>{{ row.name }}</td>
+
+<td>{{ row.uploaded_at }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

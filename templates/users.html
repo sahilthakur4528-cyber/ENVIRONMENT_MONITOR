@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Users Management</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/users.css') }}">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+            <i class="fa-solid fa-users"></i>
+            Users Management
+        </h1>
+
+        <a href="/admin_dashboard" class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    <div class="top-section">
+
+        <div class="total-card">
+
+            <h3>Total Users</h3>
+
+            <h2>{{ total_users }}</h2>
+
+        </div>
+
+        <form method="GET" action="/users" class="search-box">
+
+            <input
+            type="text"
+            name="search"
+            placeholder="Search Name or Email"
+            value="{{ keyword }}">
+
+            <button type="submit">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+        </form>
+
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+        {% for category,message in messages %}
+
+        <div class="{{ category }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+    {% endwith %}
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Name</th>
+
+                <th>Email</th>
+
+                <th>Role</th>
+
+                <th>Created</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for user in users %}
+
+            <tr>
+
+                <td>{{ user.id }}</td>
+
+                <td>{{ user.name }}</td>
+
+                <td>{{ user.email }}</td>
+
+                <td>
+
+                    {% if user.role == "admin" %}
+
+                        <span class="admin">
+
+                            Admin
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="user">
+
+                            User
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>{{ user.created_at }}</td>
+
+                <td>
+
+                    {% if user.role != "admin" %}
+
+                    <a href="{{ url_for('delete_user_route', user_id=user.id) }}"
+class="delete-btn"
+onclick="return confirm('Delete this user?')">
+
+    Delete
+
+</a>
+
+                    {% else %}
+
+                        -
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

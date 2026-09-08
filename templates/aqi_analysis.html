@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AQI Analytics</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/aqi_analysis.css') }}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            AQI Analytics
+
+        </h1>
+
+        <a href="/admin_dashboard" class="back">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- Cards -->
+
+    <section class="cards">
+
+        <div class="card">
+
+            <i class="fa-solid fa-wind"></i>
+
+            <h3>Average AQI</h3>
+
+            <h2>{{ avg_aqi }}</h2>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-arrow-up"></i>
+
+            <h3>Maximum AQI</h3>
+
+            <h2>{{ max_aqi }}</h2>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-arrow-down"></i>
+
+            <h3>Minimum AQI</h3>
+
+            <h2>{{ min_aqi }}</h2>
+
+        </div>
+
+        <div class="card">
+
+            <i class="fa-solid fa-database"></i>
+
+            <h3>Total Records</h3>
+
+            <h2>{{ recent_records|length }}</h2>
+
+        </div>
+
+    </section>
+
+    <!-- Charts -->
+
+    <div class="chart-box">
+
+        <h2>City Wise AQI</h2>
+
+        {{ city_chart|safe }}
+
+    </div>
+
+    <div class="chart-box">
+
+        <h2>AQI Category Distribution</h2>
+
+        {{ category_chart|safe }}
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-box">
+
+        <h2>Recent AQI Records</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>City</th>
+
+                    <th>AQI</th>
+
+                    <th>Category</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for row in recent_records %}
+
+                <tr>
+
+                    <td>{{ row.date }}</td>
+
+                    <td>{{ row.city }}</td>
+
+                    <td>{{ row.aqi }}</td>
+
+                    <td>{{ row.category }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

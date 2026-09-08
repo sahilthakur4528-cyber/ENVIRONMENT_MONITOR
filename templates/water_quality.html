@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Water Quality</title>
+
+
+    <!-- Water Quality CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/water_quality.css') }}">
+
+
+    <!-- Global Theme CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/theme.css') }}">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Water Quality Monitoring
+            </h1>
+
+            <p>
+                Live Water Quality & Environmental Overview
+            </p>
+
+            <div class="location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                {{ data.city }}
+
+            </div>
+
+        </div>
+
+        <div class="water-icon">
+
+            <i class="fa-solid fa-droplet"></i>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         LIVE STATUS
+    =============================== -->
+
+    <div class="live-status">
+
+        <span class="live-dot"></span>
+
+        LIVE WATER DATA
+
+        <span class="update-time">
+
+            Last Updated:
+            {{ data.created_at }}
+
+        </span>
+
+    </div>
+
+
+    <!-- ==============================
+         WATER CARDS
+    =============================== -->
+
+    <section class="cards">
+
+
+        <!-- pH -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-flask"></i>
+
+            <h4>pH Level</h4>
+
+            <h2>
+                {{ data.ph }}
+            </h2>
+
+            {% if 6.5 <= data.ph <= 8.5 %}
+
+                <span class="good-text">
+                    Normal
+                </span>
+
+            {% else %}
+
+                <span class="bad-text">
+                    Check Required
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Temperature -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-temperature-half"></i>
+
+            <h4>Water Temperature</h4>
+
+            <h2>
+                {{ data.water_temperature }}°C
+            </h2>
+
+            <span class="good-text">
+                Live
+            </span>
+
+        </div>
+
+
+        <!-- Turbidity -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-water"></i>
+
+            <h4>Turbidity</h4>
+
+            <h2>
+                {{ data.turbidity }} NTU
+            </h2>
+
+            {% if data.turbidity <= 5 %}
+
+                <span class="good-text">
+                    Good
+                </span>
+
+            {% else %}
+
+                <span class="moderate-text">
+                    High
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Dissolved Oxygen -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-vial"></i>
+
+            <h4>Dissolved Oxygen</h4>
+
+            <h2>
+                {{ data.dissolved_oxygen }} mg/L
+            </h2>
+
+            {% if data.dissolved_oxygen >= 5 %}
+
+                <span class="good-text">
+                    Good
+                </span>
+
+            {% else %}
+
+                <span class="moderate-text">
+                    Low
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- TDS -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-bacteria"></i>
+
+            <h4>TDS</h4>
+
+            <h2>
+                {{ data.tds }} mg/L
+            </h2>
+
+            {% if data.tds <= 500 %}
+
+                <span class="good-text">
+                    Good
+                </span>
+
+            {% else %}
+
+                <span class="moderate-text">
+                    High
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- WQI -->
+
+        <div class="card">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h4>Water Quality Index</h4>
+
+            <h2>
+                {{ data.wqi }}
+            </h2>
+
+            {% if data.wqi >= 75 %}
+
+                <span class="good-text">
+                    Excellent
+                </span>
+
+            {% elif data.wqi >= 50 %}
+
+                <span class="moderate-text">
+                    Moderate
+                </span>
+
+            {% else %}
+
+                <span class="bad-text">
+                    Poor
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         CHARTS
+    =============================== -->
+
+    <section class="chart-container">
+
+
+        <div class="chart-box">
+
+            <h2>
+                Water Quality Trend
+            </h2>
+
+            {% if trend %}
+
+                {{ trend|safe }}
+
+            {% else %}
+
+                <div class="no-data">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <p>
+                        No trend data available
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="chart-box">
+
+    <h2>Current Water Parameters</h2>
+
+    {% if chart %}
+        {{ chart|safe }}
+    {% else %}
+        <div class="chart-placeholder">
+            <i class="fa-solid fa-chart-column"></i>
+            <p>No parameter data available</p>
+        </div>
+    {% endif %}
+
+</div>
+
+    </section>
+
+
+<!-- ==============================
+OVERALL STATUS
+=============================== -->
+
+    <section class="status-box">
+
+        <h2>
+            Overall Water Quality
+        </h2>
+
+
+        {% if data.wqi >= 75 %}
+
+        <div class="quality-status good-status">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+
+                <h3>
+                    Good Water Quality
+                </h3>
+
+                <p>
+                    Current water quality indicators
+                    are in a good range.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% elif data.wqi >= 50 %}
+
+        <div class="quality-status moderate-status">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            <div>
+
+                <h3>
+                    Moderate Water Quality
+                </h3>
+
+                <p>
+                    Some water quality parameters
+                    need monitoring.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="quality-status poor-status">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <div>
+
+                <h3>
+                    Poor Water Quality
+                </h3>
+
+                <p>
+                    Water quality requires attention
+                    and further testing.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- ==============================
+         RECOMMENDATIONS
+    =============================== -->
+
+    <section class="advice-box">
+
+        <h2>
+            Water Quality Recommendations
+        </h2>
+
+        <ul>
+
+            <li>
+                <i class="fa-solid fa-check"></i>
+                Regularly monitor pH and turbidity levels.
+            </li>
+
+            <li>
+                <i class="fa-solid fa-check"></i>
+                Keep water sources free from waste and pollutants.
+            </li>
+
+            <li>
+                <i class="fa-solid fa-check"></i>
+                Monitor dissolved oxygen regularly.
+            </li>
+
+            <li>
+                <i class="fa-solid fa-check"></i>
+                Test water quality before domestic or agricultural use.
+            </li>
+
+            <li>
+                <i class="fa-solid fa-check"></i>
+                Maintain proper sanitation around water sources.
+            </li>
+
+        </ul>
+
+    </section>
+
+</div>
+
+
+<!-- ==============================
+     AUTO REFRESH
+=============================== -->
+
+<script>
+
+setTimeout(function() {
+
+    location.reload();
+
+}, 10000);
+
+</script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+</body>
+
+</html>

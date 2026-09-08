@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     LOCATION NOTIFICATION
+================================================== -->
+
+<div class="location-notification">
+
+    <div class="location-message">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <div>
+
+            <strong>Enable Location</strong>
+
+            <p>
+                Allow location access to show current weather
+                for your area.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button onclick="getUserLocation()">
+
+        Allow Location
+
+    </button>
+
+</div>
+
+
+
+<!-- =================================================
+     MAIN CONTAINER
+================================================== -->
+
+<div class="container">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <div>
+
+                <h2>Environmental</h2>
+
+                <p>Monitoring System</p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <ul class="menu">
+
+
+            <!-- Dashboard -->
+
+            <li class="active">
+
+                <a href="{{ url_for('dashboard') }}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+
+            <!-- Air Quality -->
+
+            <li>
+
+                <a href="/airquality">
+
+                    <i class="fa-solid fa-wind"></i>
+
+                    Air Quality
+
+                </a>
+
+            </li>
+
+
+
+            <!-- Water Quality -->
+
+            <li>
+
+                <a href="{{ url_for('water_quality') }}">
+
+                    <i class="fa-solid fa-droplet"></i>
+
+                    Water Quality
+
+                </a>
+
+            </li>
+
+
+
+            <!-- Pollution Map -->
+
+            <li>
+
+                <a href="{{ url_for('pollution_map_page') }}">
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    Pollution Map
+
+                </a>
+
+            </li>
+
+
+
+            <!-- AQI Prediction -->
+
+            <li>
+
+                <a href="{{ url_for('aqi_prediction') }}">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    AQI Prediction
+
+                </a>
+
+            </li>
+
+
+
+            <!-- Reports -->
+
+            <li>
+
+                <a href="{{ url_for('reports') }}">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    Reports
+
+                </a>
+
+            </li>
+
+
+            <!-- Logout -->
+
+            <li class="logout">
+
+                <a href="{{ url_for('logout') }}">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </li>
+
+ 
+        </ul>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =============================================
+             DASHBOARD HEADER
+        ============================================== -->
+
+        <header class="dashboard-header">
+
+
+            <div class="welcome-text">
+
+                <h1>
+                    Welcome, {{ session.get('user_name', 'User') }}!
+                </h1>
+
+                <p>
+                    Here's your environmental overview
+                </p>
+
+            </div>
+
+
+
+            <div class="header-right">
+
+                <span class="header-date">
+
+                    {{ current_date }}
+
+                </span>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =============================================
+             SUMMARY CARDS
+        ============================================== -->
+
+        <section class="cards">
+
+
+            <!-- AQI -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-leaf"></i>
+
+                <h4>AQI</h4>
+
+                <h2>
+                    {{ summary.aqi }}
+                </h2>
+
+                <span>
+
+                    {% if summary.aqi <= 50 %}
+
+                        Good
+
+                    {% elif summary.aqi <= 100 %}
+
+                        Moderate
+
+                    {% elif summary.aqi <= 150 %}
+
+                        Unhealthy for Sensitive Groups
+
+                    {% elif summary.aqi <= 200 %}
+
+                        Unhealthy
+
+                    {% elif summary.aqi <= 300 %}
+
+                        Very Unhealthy
+
+                    {% else %}
+
+                        Hazardous
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- Temperature -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-temperature-three-quarters"></i>
+
+                <h4>Temperature</h4>
+
+                <h2>
+                    {{ summary.temperature }}°C
+                </h2>
+
+            </div>
+
+
+
+            <!-- Humidity -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-droplet"></i>
+
+                <h4>Humidity</h4>
+
+                <h2>
+                    {{ summary.humidity }}%
+                </h2>
+
+            </div>
+
+
+
+            <!-- PM2.5 -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <h4>PM2.5</h4>
+
+                <h2>
+                    {{ summary.pm25 }}
+                </h2>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =============================================
+             MIDDLE DASHBOARD SECTION
+        ============================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- =========================================
+                 CURRENT WEATHER
+            ========================================== -->
+
+            <div class="box weather">
+
+
+                <div class="box-header">
+
+                    <div>
+
+                        <h3>
+                            Current Weather
+                        </h3>
+
+                        <p>
+                            Live weather conditions
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-cloud-sun weather-header-icon"></i>
+
+                </div>
+
+
+
+                {% if weather %}
+
+
+                <div class="weather-main">
+
+
+                    <div class="weather-icon-large">
+
+                        <i class="fa-solid fa-cloud-sun"></i>
+
+                    </div>
+
+
+
+                    <div class="weather-temperature">
+
+                        <h1>
+                            {{ weather.temperature }}°C
+                        </h1>
+
+                        <p>
+                            {{ weather.description|capitalize }}
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="weather-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>
+                        {{ weather.city }}
+                    </span>
+
+                </div>
+
+
+
+                <div class="weather-details">
+
+
+                    <div>
+
+                        <i class="fa-solid fa-droplet"></i>
+
+                        <span>
+                            Humidity
+                        </span>
+
+                        <strong>
+                            {{ weather.humidity }}%
+                        </strong>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <i class="fa-solid fa-wind"></i>
+
+                        <span>
+                            Wind
+                        </span>
+
+                        <strong>
+                            {{ weather.wind_speed }} m/s
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                {% else %}
+
+
+                <div class="weather-empty">
+
+                    <i class="fa-solid fa-location-crosshairs"></i>
+
+                    <p>
+
+                        Allow location access to view
+                        your current weather.
+
+                    </p>
+
+                </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 AQI OVERVIEW
+            ========================================== -->
+
+            <div class="box aqi-overview">
+
+
+                <div class="box-header">
+
+                    <div>
+
+                        <h3>
+                            AQI Overview
+                        </h3>
+
+                        <p>
+                            Current Air Quality Index
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-wind aqi-header-icon"></i>
+
+                </div>
+
+
+
+                <div class="aqi-content">
+
+
+                    <div class="aqi-circle">
+
+                        <strong>
+                            {{ summary.aqi }}
+                        </strong>
+
+                        <span>
+                            AQI
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="aqi-info">
+
+
+                        {% if summary.aqi <= 50 %}
+
+                            <h3 class="aqi-good">
+                                Good
+                            </h3>
+
+                            <p>
+                                Air quality is satisfactory.
+                            </p>
+
+
+                        {% elif summary.aqi <= 100 %}
+
+                            <h3 class="aqi-moderate">
+                                Moderate
+                            </h3>
+
+                            <p>
+                                Air quality is acceptable.
+                            </p>
+
+
+                        {% elif summary.aqi <= 200 %}
+
+                            <h3 class="aqi-poor">
+                                Poor
+                            </h3>
+
+                            <p>
+                                Sensitive people may be affected.
+                            </p>
+
+
+                        {% else %}
+
+                            <h3 class="aqi-danger">
+                                Unhealthy
+                            </h3>
+
+                            <p>
+                                Air quality requires attention.
+                            </p>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =============================================
+             FOOTER
+        ============================================== -->
+
+        <footer class="site-footer">
+
+            <div class="footer-content">
+
+                <span>
+                    © 2026 Environmental Monitoring System
+                </span>
+
+                <span class="footer-divider">
+                    |
+                </span>
+
+                <span>
+                    Developed by Sahil Thakur
+                </span>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =================================================
+     LOCATION JAVASCRIPT
+================================================== -->
+
+<script>
+
+function getUserLocation() {
+
+    if (!navigator.geolocation) {
+
+        alert("Geolocation is not supported by your browser.");
+
+        return;
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            fetch("/update_location", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    latitude: position.coords.latitude,
+
+                    longitude: position.coords.longitude
+
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+
+                    window.location.reload();
+
+                }
+
+                else {
+
+                    alert(
+                        data.message ||
+                        "Unable to get weather data."
+                    );
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                alert("Location update failed.");
+
+            });
+
+        },
+
+
+        function() {
+
+            alert(
+                "Location permission was denied."
+            );
+
+        }
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

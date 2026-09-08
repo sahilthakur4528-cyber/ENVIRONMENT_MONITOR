@@ -1,0 +1,303 @@
+/*=================================
+        GOOGLE FONT
+=================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/*=================================
+        RESET
+=================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+
+    background:#f4f7fb;
+
+}
+
+/*=================================
+        CONTAINER
+=================================*/
+
+.container{
+
+    display:flex;
+    min-height:100vh;
+
+}
+
+/*=================================
+        LEFT SIDE
+=================================*/
+
+.left{
+
+    flex:1;
+    background:linear-gradient(rgba(22,163,74,.85),
+               rgba(22,163,74,.85)),
+               url("../images/background.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:60px;
+
+}
+
+.overlay{
+
+    color:white;
+
+}
+
+.overlay h1{
+
+    font-size:42px;
+    margin-bottom:20px;
+
+}
+
+.overlay p{
+
+    font-size:18px;
+    line-height:32px;
+
+}
+
+/*=================================
+        RIGHT SIDE
+=================================*/
+
+.right{
+
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:white;
+
+}
+
+form{
+
+    width:420px;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+form h2{
+
+    font-size:34px;
+
+    color:#16a34a;
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    color:#666;
+
+    margin-bottom:30px;
+
+}
+
+/*=================================
+        INPUT
+=================================*/
+
+.input-box{
+
+    position:relative;
+
+    margin-bottom:22px;
+
+}
+
+.input-box i{
+
+    position:absolute;
+
+    left:16px;
+
+    top:16px;
+
+    color:#16a34a;
+
+}
+
+.input-box input{
+
+    width:100%;
+
+    padding:14px 14px 14px 48px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.input-box input:focus{
+
+    border-color:#16a34a;
+
+}
+
+/*=================================
+        BUTTON
+=================================*/
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#16a34a;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#13853b;
+
+}
+
+/*=================================
+        REGISTER
+=================================*/
+
+.register{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#555;
+
+}
+
+.register a{
+
+    text-decoration:none;
+
+    color:#16a34a;
+
+    font-weight:600;
+
+}
+
+.register a:hover{
+
+    text-decoration:underline;
+
+}
+
+/*=================================
+        FLASH MESSAGE
+=================================*/
+
+.message{
+
+    padding:12px;
+
+    border-radius:8px;
+
+    margin-bottom:18px;
+
+    font-size:14px;
+
+}
+
+.success{
+
+    background:#d4edda;
+
+    color:#155724;
+
+}
+
+.error{
+
+    background:#f8d7da;
+
+    color:#721c24;
+
+}
+
+/*=================================
+        RESPONSIVE
+=================================*/
+
+@media(max-width:900px){
+
+.container{
+
+flex-direction:column;
+
+}
+
+.left{
+
+min-height:250px;
+
+text-align:center;
+
+}
+
+.overlay h1{
+
+font-size:32px;
+
+}
+
+form{
+
+width:90%;
+
+margin:30px 0;
+
+}
+
+}
