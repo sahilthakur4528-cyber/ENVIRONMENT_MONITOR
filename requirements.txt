@@ -10,3 +10,4 @@ gunicorn
 scikit-learn
 joblib
 reportlab
+scikit-learn==1.8.0
