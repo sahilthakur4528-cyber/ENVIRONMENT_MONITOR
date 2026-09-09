@@ -7,110 +7,236 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Environment Monitoring System</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Login | Environmental Monitoring System</title>
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+          href="{{ url_for('static', filename='css/login.css') }}?v=10">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-    <div class="left">
+    <!-- Decorative shapes -->
+    <div class="circle circle-one"></div>
+    <div class="circle circle-two"></div>
+    <div class="circle circle-three"></div>
 
-        <div class="overlay">
 
-            <h1>Environment Monitoring System</h1>
+    <!-- LEFT BRANDING -->
+
+    <section class="brand-section">
+
+        <div class="brand-content">
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+
+            <span class="brand-small">
+                ENVIRONMENTAL TECHNOLOGY
+            </span>
+
+            <h1>
+                Monitor Today.<br>
+                <span>Protect Tomorrow.</span>
+            </h1>
 
             <p>
-                Monitor Air Quality, Water Quality,
-                Pollution Levels and Predict AQI
-                using Machine Learning.
+                Smart environmental monitoring for
+                air quality, water quality, pollution
+                analysis and AI-powered AQI prediction.
             </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+
+                    <div>
+                        <strong>Air Quality</strong>
+                        <small>Monitor pollution levels</small>
+                    </div>
+                </div>
+
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+
+                    <div>
+                        <strong>Water Quality</strong>
+                        <small>Track water parameters</small>
+                    </div>
+                </div>
+
+
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+
+                    <div>
+                        <strong>AI Prediction</strong>
+                        <small>Predict future AQI</small>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+    </section>
 
-    <div class="right">
 
-        <form action="/login" method="POST">
+    <!-- LOGIN -->
 
-            <h2>Login</h2>
+    <section class="login-section">
 
-            <p class="subtitle">
-                Welcome Back
-            </p>
+        <div class="login-card">
+
+            <div class="mobile-logo">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+
+
+            <div class="login-header">
+
+                <span>WELCOME BACK</span>
+
+                <h2>Sign in</h2>
+
+                <p>
+                    Access your environmental dashboard
+                </p>
+
+            </div>
+
 
             {% with messages = get_flashed_messages(with_categories=true) %}
 
-            {% if messages %}
+                {% if messages %}
 
-            {% for category, message in messages %}
+                    {% for category, message in messages %}
 
-            <div class="message {{ category }}">
+                        <div class="message {{ category }}">
+                            <i class="fa-solid fa-circle-check"></i>
+                            {{ message }}
+                        </div>
 
-                {{ message }}
+                    {% endfor %}
 
-            </div>
-
-            {% endfor %}
-
-            {% endif %}
+                {% endif %}
 
             {% endwith %}
 
-            <div class="input-box">
 
-                <i class="fa-solid fa-envelope"></i>
+            <form action="/login" method="POST">
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email"
-                    required>
 
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label>Email Address</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="field">
+
+                    <label>Password</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="forgot">
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <button type="submit">
+
+                    <span>Sign In</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+            </form>
+
+
+            <div class="divider">
+                <span>OR</span>
             </div>
 
-            <div class="input-box">
-
-                <i class="fa-solid fa-lock"></i>
-
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password"
-                    required>
-
-            </div>
-
-            <button type="submit">
-
-                Login
-
-            </button>
 
             <div class="register">
 
-                Don't have an account?
+                <span>Don't have an account?</span>
 
                 <a href="{{ url_for('register') }}">
-
-                    Register
-
+                    Create Account
                 </a>
 
             </div>
 
-        </form>
 
-    </div>
+            <div class="security">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Secure environmental monitoring platform
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </div>
+
 
 </body>
 
