@@ -389,159 +389,225 @@ header p {
    MOBILE
 ========================================== */
 
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
 @media (max-width: 600px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
     body {
         display: block;
     }
 
-    /* -------------------------------
-       Mobile Sidebar
-    -------------------------------- */
+    /* =========================
+       SIDEBAR
+    ========================= */
 
     .sidebar {
-        width: 64px;
+        width: 62px;
         height: 100vh;
-
         position: fixed;
-
         left: 0;
         top: 0;
+        overflow-x: hidden;
     }
 
     .logo {
+        width: 62px;
         padding: 18px 5px;
+        justify-content: center;
     }
 
     .logo i {
         font-size: 27px;
     }
 
+    .logo h2,
+    .logo p {
+        display: none;
+    }
+
     .sidebar ul {
+        width: 100%;
         margin-top: 15px;
     }
 
     .sidebar ul li {
-        margin: 7px 6px;
+        width: calc(100% - 10px);
+        margin: 7px 5px;
     }
 
     .sidebar ul li a {
+        width: 100%;
         padding: 13px 5px;
+        justify-content: center;
         border-radius: 8px;
     }
 
+    .sidebar ul li a span {
+        display: none;
+    }
+
     .sidebar ul li a i {
+        margin: 0;
         font-size: 17px;
     }
 
-    /* -------------------------------
-       Main Content
-    -------------------------------- */
+
+    /* =========================
+       MAIN CONTENT
+    ========================= */
 
     .main-content {
-        margin-left: 64px;
-
-        width: calc(100% - 64px);
-
-        padding: 18px 14px;
-
+        margin-left: 62px;
+        width: calc(100% - 62px);
+        max-width: calc(100% - 62px);
         min-width: 0;
+        padding: 16px 10px;
     }
 
-    /* -------------------------------
-       Header
-    -------------------------------- */
+
+    /* =========================
+       HEADER
+    ========================= */
 
     header {
+        width: 100%;
         flex-direction: column;
-
         align-items: flex-start;
-
         gap: 12px;
-
         margin-bottom: 20px;
     }
 
     header h1 {
-        font-size: 25px;
-
-        line-height: 1.2;
+        width: 100%;
+        font-size: 23px;
+        line-height: 1.25;
+        word-break: break-word;
     }
 
     header p {
-        font-size: 14px;
+        font-size: 13px;
+        line-height: 1.4;
     }
 
     .admin-profile {
         width: 100%;
-
-        padding: 10px 14px;
-
-        font-size: 14px;
+        max-width: 100%;
+        padding: 10px 12px;
+        font-size: 13px;
+        white-space: normal;
     }
 
-    /* -------------------------------
-       Cards
-    -------------------------------- */
+
+    /* =========================
+       CARDS
+    ========================= */
 
     .cards {
+        width: 100%;
+        display: grid;
         grid-template-columns: 1fr;
-
-        gap: 15px;
-
+        gap: 12px;
         margin-bottom: 20px;
     }
 
     .card {
-        padding: 20px;
-    }
-
-    .card h2 {
-        font-size: 25px;
+        width: 100%;
+        min-width: 0;
+        padding: 18px 12px;
     }
 
     .card i {
-        font-size: 30px;
+        font-size: 28px;
+        margin-bottom: 10px;
     }
 
-    /* -------------------------------
-       Charts
-    -------------------------------- */
+    .card h4 {
+        font-size: 14px;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+
+    /* =========================
+       CHARTS
+    ========================= */
 
     .charts {
+        width: 100%;
+        display: grid;
         grid-template-columns: 1fr;
-
-        gap: 15px;
+        gap: 12px;
+        margin-bottom: 20px;
     }
 
     .chart-box {
-        padding: 15px;
-
         width: 100%;
-
-        overflow-x: auto;
+        min-width: 0;
+        padding: 12px;
+        overflow: hidden;
     }
 
     .chart-box h3 {
-        font-size: 17px;
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 
-    /* -------------------------------
-       Dataset
-    -------------------------------- */
+    .chart-box .plotly-graph-div {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 
-    .status-box,
-    .recent {
-        padding: 18px;
 
+    /* =========================
+       DATASET STATUS
+    ========================= */
+
+    .status-box {
+        width: 100%;
+        padding: 15px;
         margin-bottom: 20px;
-
         overflow-x: auto;
     }
 
-    .status-box h3,
+    .status-box h3 {
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+
+    .status-box table {
+        min-width: 450px;
+    }
+
+
+    /* =========================
+       RECENT UPLOAD
+    ========================= */
+
+    .recent {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        overflow-x: auto;
+    }
+
     .recent h3 {
-        font-size: 18px;
+        font-size: 17px;
+        margin-bottom: 15px;
+    }
+
+    .recent table {
+        min-width: 550px;
     }
 }
 
@@ -549,36 +615,102 @@ header p {
    SMALL MOBILE
 ========================================== */
 
+@/* ==========================================
+   VERY SMALL MOBILE
+========================================== */
+
 @media (max-width: 400px) {
 
     .sidebar {
-        width: 55px;
+        width: 52px;
     }
 
-    .main-content {
-        margin-left: 55px;
-        width: calc(100% - 55px);
+    .logo {
+        width: 52px;
+        padding: 16px 3px;
+    }
 
-        padding: 15px 10px;
+    .logo i {
+        font-size: 24px;
     }
 
     .sidebar ul li {
+        width: calc(100% - 8px);
         margin: 6px 4px;
     }
 
     .sidebar ul li a {
-        padding: 12px 4px;
+        padding: 11px 2px;
     }
 
+    .sidebar ul li a i {
+        font-size: 16px;
+    }
+
+
+    .main-content {
+        margin-left: 52px;
+        width: calc(100% - 52px);
+        max-width: calc(100% - 52px);
+        padding: 13px 8px;
+    }
+
+
     header h1 {
-        font-size: 22px;
+        font-size: 20px;
+    }
+
+    header p {
+        font-size: 12px;
+    }
+
+    .admin-profile {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+
+    .cards {
+        gap: 10px;
     }
 
     .card {
-        padding: 17px;
+        padding: 15px 10px;
+    }
+
+    .card i {
+        font-size: 25px;
+    }
+
+    .card h4 {
+        font-size: 13px;
     }
 
     .card h2 {
-        font-size: 23px;
+        font-size: 22px;
+    }
+
+
+    .charts {
+        gap: 10px;
+    }
+
+    .chart-box {
+        padding: 10px;
+    }
+
+    .chart-box h3 {
+        font-size: 15px;
+    }
+
+
+    .status-box,
+    .recent {
+        padding: 12px;
+    }
+
+    .status-box h3,
+    .recent h3 {
+        font-size: 16px;
     }
 }
