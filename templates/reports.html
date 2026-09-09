@@ -88,11 +88,11 @@
 
         <!-- AIR REPORT -->
 
-        <div class="report-card">
+<div class="report-card">
 
-            <div class="card-icon air-icon">
+            <div class="card-icon water-icon">
 
-                <i class="fa-solid fa-wind"></i>
+                <i class="fa-solid fa-droplet"></i>
 
             </div>
 
@@ -110,7 +110,7 @@
                 <div class="report-info">
 
                     <span>
-                        <i class="fa-solid fa-chart-line"></i>
+                        <i class="fa-solid fa-water"></i>
                         Air Quality
                     </span>
 
@@ -121,14 +121,19 @@
 
                 </div>
 
-                <a href="{{ url_for('air_report') }}" class="report-btn">
-    <i class="fa-solid fa-download"></i>
-    Download Air Quality Report
-</a>
+                <a href="{{ url_for('water_report') }}"
+                   class="report-button">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Download Air Quality Report
+
+                </a>
 
             </div>
 
         </div>
+
 
 
         <!-- WATER REPORT -->
