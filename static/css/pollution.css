@@ -1,0 +1,271 @@
+/* ==========================================
+   INDIA POLLUTION MAP
+   ========================================== */
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 15%, rgba(34, 197, 94, 0.10), transparent 25%),
+        radial-gradient(circle at 90% 10%, rgba(16, 185, 129, 0.08), transparent 25%),
+        linear-gradient(135deg, #f4fbf6, #f8fbfa 50%, #eef8f1);
+    min-height: 100vh;
+}
+
+/* Main page wrapper */
+.pollution-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 35px 45px;
+    box-sizing: border-box;
+}
+
+/* Main white card */
+.pollution-map-card {
+    width: 100%;
+    max-width: 1550px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow:
+        0 15px 45px rgba(20, 70, 40, 0.10),
+        0 3px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(30, 120, 70, 0.08);
+}
+
+/* Header */
+.pollution-map-header {
+    padding: 28px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: #ffffff;
+    border-bottom: 1px solid #edf2ef;
+}
+
+/* Title area */
+.pollution-title {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.pollution-title-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #eaf8ef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #16a34a;
+    font-size: 27px;
+}
+
+.pollution-title h1 {
+    margin: 0;
+    color: #123b27;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.pollution-title p {
+    margin: 6px 0 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* AQI Legend */
+.aqi-legend {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 15px 20px;
+    background: #f1faf4;
+    border-radius: 14px;
+}
+
+.aqi-legend-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #244236;
+    margin-right: 4px;
+}
+
+.aqi-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #53655c;
+    white-space: nowrap;
+}
+
+.aqi-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.aqi-good {
+    background: #16a34a;
+}
+
+.aqi-moderate {
+    background: #eab308;
+}
+
+.aqi-poor {
+    background: #f97316;
+}
+
+.aqi-unhealthy {
+    background: #ef4444;
+}
+
+.aqi-very-unhealthy {
+    background: #9333ea;
+}
+
+.aqi-hazardous {
+    background: #4c1d95;
+}
+
+/* Map area */
+.map-wrapper {
+    padding: 25px 30px 30px;
+    background: #ffffff;
+}
+
+/* Actual Plotly map */
+.map-container {
+    width: 100%;
+    min-height: 620px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f5f8f6;
+    border: 1px solid #e5ebe7;
+}
+
+/* Plotly generated div */
+.map-container > div {
+    width: 100% !important;
+}
+
+/* Plotly graph */
+.map-container .plotly,
+.map-container .js-plotly-plot {
+    width: 100% !important;
+}
+
+/* Remove unnecessary white spacing */
+.map-container .main-svg {
+    border-radius: 16px;
+}
+
+/* Footer information */
+.pollution-map-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #f7fbf8;
+    border-top: 1px solid #e8eee9;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.pollution-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background: #16a34a;
+    border-radius: 50%;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1100px) {
+
+    .pollution-page {
+        padding: 25px;
+    }
+
+    .pollution-map-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .aqi-legend {
+        width: 100%;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+    }
+
+    .map-container {
+        min-height: 550px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .pollution-page {
+        padding: 12px;
+    }
+
+    .pollution-map-card {
+        border-radius: 14px;
+    }
+
+    .pollution-map-header {
+        padding: 20px;
+    }
+
+    .pollution-title {
+        gap: 12px;
+    }
+
+    .pollution-title-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+
+    .pollution-title h1 {
+        font-size: 23px;
+    }
+
+    .pollution-title p {
+        font-size: 13px;
+    }
+
+    .aqi-legend {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .map-wrapper {
+        padding: 15px;
+    }
+
+    .map-container {
+        min-height: 450px;
+        border-radius: 12px;
+    }
+
+    .pollution-map-footer {
+        padding: 12px 15px;
+        display: block;
+    }
+}
