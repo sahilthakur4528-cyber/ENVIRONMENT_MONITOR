@@ -283,56 +283,54 @@ def aqi_distribution():
 # ==========================================
 
 def pollution_map():
-
-    query = """
-    SELECT
-        city,
-        latitude,
-        longitude,
-        aqi,
-        pm25,
-        pm10,
-        temperature,
-        humidity
-    FROM environment_data
-    """
-
-    data = fetch_all(query)
-
-    df = pd.DataFrame(data)
+    df = pd.read_sql("""
+        SELECT city, latitude, longitude, aqi
+        FROM environment_data
+        WHERE latitude IS NOT NULL
+          AND longitude IS NOT NULL
+          AND aqi IS NOT NULL
+    """, get_connection())
 
     if df.empty:
-        return "<h3>No Data Available</h3>"
+        return None
+
+    df["aqi"] = pd.to_numeric(df["aqi"], errors="coerce")
+    df["latitude"] = pd.to_numeric(df["latitude"], errors="coerce")
+    df["longitude"] = pd.to_numeric(df["longitude"], errors="coerce")
+
+    df = df.dropna(subset=["latitude", "longitude", "aqi"])
+
+    if df.empty:
+        return None
 
     fig = px.scatter_map(
         df,
         lat="latitude",
         lon="longitude",
-        color="aqi",
         size="aqi",
+        color="aqi",
         hover_name="city",
         hover_data={
             "aqi": True,
-            "pm25": True,
-            "pm10": True,
-            "temperature": True,
-            "humidity": True,
             "latitude": False,
             "longitude": False
         },
         zoom=4,
-        center=dict(lat=22.5, lon=80),
-        height=600,
-        color_continuous_scale="RdYlGn_r"
+        center={
+            "lat": 22.5,
+            "lon": 79.0
+        },
+        height=600
     )
 
     fig.update_layout(
-        map_style="open-street-map",
-        margin=dict(l=0, r=0, t=40, b=0)
+        margin=dict(l=0, r=0, t=0, b=0)
     )
 
-    return fig.to_html(full_html=False)
-
+    return fig.to_html(
+        full_html=False,
+        include_plotlyjs=True
+    )
 
 # ==========================================
 # Admin Dashboard Summary
